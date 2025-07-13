@@ -4,6 +4,7 @@ local a = vim.api
 o.cursorline = true
 o.cursorlineopt = "screenline"
 o.cursorcolumn = true
+o.signcolumn = "yes"
 
 o.number = true
 o.wrap = false

@@ -10,6 +10,13 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	{
+		'windwp/nvim-autopairs',
+		event = "InsertEnter",
+		config = true
+		-- use opts = {} for passing setup options
+		-- this is equivalent to setup({}) function
+	},
+	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		config = function()
