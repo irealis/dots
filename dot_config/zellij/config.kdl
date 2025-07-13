@@ -1,0 +1,59 @@
+themes {
+	rose-pine-dawn {
+		bg "#dfdad9"
+		fg "#575279"
+		red "#b4637a"
+		green "#286983"
+		blue "#56949f"
+		yellow "#ea9d34"
+		magenta "#907aa9"
+		orange "#fe640b"
+		cyan "#d7827e"
+		black "#f2e9e1"
+		white "#575279"
+	}
+}
+
+keybinds {
+    Normal clear-defaults=true {
+        bind "Alt n" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "Ctrl z" { SwitchToMode "Tmux"; }
+        bind "Alt w" { ToggleFloatingPanes; }
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt h" { MoveFocusOrTab "Left"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt l" { MoveFocusOrTab "Right"; }
+    }
+    Tmux clear-defaults=true {
+        bind "Esc" { SwitchToMode "Normal"; }
+        bind "n" { NewPane; SwitchToMode "Normal"; }
+        bind "t" { NewTab; SwitchToMode "Normal"; }
+        bind "d" { Detach; SwitchToMode "Normal"; }
+        bind "v" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "s" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
+        bind "f" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "1" { GoToTab 1; SwitchToMode "Normal"; }
+        bind "2" { GoToTab 2; SwitchToMode "Normal"; }
+        bind "3" { GoToTab 3; SwitchToMode "Normal"; }
+        bind "4" { GoToTab 4; SwitchToMode "Normal"; }
+        bind "5" { GoToTab 5; SwitchToMode "Normal"; }
+        bind "h" { MoveFocusOrTab "Left"; SwitchToMode "Normal"; }
+        bind "j" { MoveFocus "Down"; SwitchToMode "Normal"; }
+        bind "k" { MoveFocus "Up"; SwitchToMode "Normal"; }
+        bind "l" { MoveFocusOrTab "Right"; SwitchToMode "Normal"; }
+		bind "e" { EditScrollback; SwitchToMode "Normal"; }
+    }
+    Pane clear-defaults=true {}
+    Tab clear-defaults=true {}
+    Resize clear-defaults=true {}
+}
+
+pane_frames true
+
+theme "rose-pine-dawn"
