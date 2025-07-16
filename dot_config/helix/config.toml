@@ -1,0 +1,11 @@
+theme = "eiffel"
+
+[keys.insert]
+j = { k = "normal_mode" } # Maps `jk` to exit insert mode
+
+[editor]
+cursorline = true
+lsp.display-inlay-hints = true
+
+[editor.inline-diagnostics]
+cursor-line = "hint"
