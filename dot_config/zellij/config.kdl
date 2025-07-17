@@ -17,7 +17,7 @@ themes {
 keybinds {
     Normal clear-defaults=true {
         bind "Alt n" { NewPane "Right"; SwitchToMode "Normal"; }
-        bind "Ctrl z" { SwitchToMode "Tmux"; }
+        bind "Ctrl x" { SwitchToMode "Tmux"; }
         bind "Alt w" { ToggleFloatingPanes; }
         bind "Alt 1" { GoToTab 1; }
         bind "Alt 2" { GoToTab 2; }

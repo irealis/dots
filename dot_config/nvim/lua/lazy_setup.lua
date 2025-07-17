@@ -33,9 +33,42 @@ require("lazy").setup({
 			}
 		},
 	},
-	{
-		'stevearc/conform.nvim',
-		opts = {},
+	{ -- Autoformat
+		"stevearc/conform.nvim",
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
+		keys = {
+			{
+				"<leader>f",
+				function()
+					require("conform").format({ async = true, lsp_format = "fallback" })
+				end,
+				desc = "[F]ormat buffer",
+			},
+		},
+		opts = {
+			notify_on_error = false,
+			formatters = {
+				dotnetfmt = {
+					command = "dotnet",
+					args = { "format", "--include", "$FILENAME" },
+					stdin = true,
+				},
+			},
+			formatters_by_ft = {
+				lua = { "stylua" },
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				html = { "prettier" },
+				--csharp = { "dotnetfmt" },
+			},
+			format_after_save = {
+				-- These options will be passed to conform.format()
+				--timeout_ms = 500,
+				lsp_format = "fallback",
+				async = true,
+			},
+		},
 	},
 	{
 		"stevearc/oil.nvim",
@@ -45,7 +78,7 @@ require("lazy").setup({
 			{ "<leader>oo", "<cmd>Oil<CR>" },
 		},
 	},
-	{"nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate"},
+	{ "nvim-treesitter/nvim-treesitter", branch = 'master', lazy = false, build = ":TSUpdate" },
 	{
 		"saghen/blink.cmp",
 		dependencies = "rafamadriz/friendly-snippets",
@@ -126,4 +159,3 @@ require("lazy").setup({
 		opts_extend = { "sources.default" },
 	},
 })
-
