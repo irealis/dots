@@ -9,6 +9,7 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	{ "tpope/vim-fugitive" },
 	{
 		'windwp/nvim-autopairs',
 		event = "InsertEnter",
@@ -22,6 +23,24 @@ require("lazy").setup({
 		config = function()
 			vim.cmd("colorscheme rose-pine")
 		end
+	},
+	{
+		"dmtrKovalenko/fff.nvim",
+		build = "cargo build --release",
+		-- or if you are using nixos
+		-- build = "nix run .#release",
+		opts = {
+			-- pass here all the options
+		},
+		keys = {
+			{
+				"ff",            -- try it if you didn't it is a banger keybinding for a picker
+				function()
+					require("fff").find_files() -- or find_in_git_root() if you only want git files
+				end,
+				desc = "Open file picker",
+			},
+		},
 	},
 	{
 		"ibhagwan/fzf-lua",

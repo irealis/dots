@@ -5,7 +5,15 @@ j = { k = "normal_mode" } # Maps `jk` to exit insert mode
 
 [editor]
 cursorline = true
-lsp.display-inlay-hints = true
+lsp.display-inlay-hints = false
+end-of-line-diagnostics = "hint"
 
 [editor.inline-diagnostics]
-cursor-line = "hint"
+cursor-line = "disable"
+
+[editor.cursor-shape]
+insert = "bar"
+select = "underline"
+
+[editor.soft-wrap]
+enable = true

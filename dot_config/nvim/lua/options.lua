@@ -1,6 +1,11 @@
 local o = vim.opt
 local a = vim.api
 
+vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+    pattern = '*',
+    command = 'set ff=unix'
+})
+
 o.cursorline = true
 o.cursorlineopt = "screenline"
 o.cursorcolumn = true
@@ -42,9 +47,7 @@ vim.g.netrw_banner = 0
 
 vim.g.have_nerd_font = true
 
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
-end)
+o.clipboard = "unnamedplus"
 
 local highlight_group = a.nvim_create_augroup("YankHighlight", { clear = true })
 a.nvim_create_autocmd("TextYankPost", {
