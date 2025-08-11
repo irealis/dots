@@ -76,7 +76,7 @@ return {
 		"--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
 		"--stdio",
 	},
-	root_markers = { ".sln", ".csproj", ".git" },
+	root_markers = { ".sln", ".slnx", ".git", ".jj" },
 	filetypes = { "cs" },
 	handlers = roslyn_handlers(),
 	root_dir = function(bufnr, cb)

@@ -1,9 +1,13 @@
 local o = vim.opt
 local a = vim.api
 
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
-    pattern = '*',
-    command = 'set ff=unix'
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+	pattern = '*',
+	callback = function()
+		if vim.bo.modifiable then
+			vim.bo.fileformat = 'unix'
+		end
+	end
 })
 
 o.cursorline = true

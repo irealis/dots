@@ -134,7 +134,6 @@ require("lazy").setup({
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
-
 			keymap = {
 				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 				["<C-e>"] = { "hide", "fallback" },
@@ -176,5 +175,100 @@ require("lazy").setup({
 			},
 		},
 		opts_extend = { "sources.default" },
+	},
+	{
+		'mfussenegger/nvim-dap',
+		dependencies = {
+			'rcarriga/nvim-dap-ui',
+			'nvim-neotest/nvim-nio',
+		},
+		keys = function(_, keys)
+			local dap = require 'dap'
+			local dapui = require 'dapui'
+			return {
+				{ '<F5>',       dap.continue,          desc = 'Debug: Start/Continue' },
+				{ '<F1>',       dap.step_into,         desc = 'Debug: Step Into' },
+				{ '<F2>',       dap.step_over,         desc = 'Debug: Step Over' },
+				{ '<F3>',       dap.step_out,          desc = 'Debug: Step Out' },
+				{ '<leader>bb', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+				{
+					'<leader>bc',
+					function()
+						dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+					end,
+					desc = 'Debug: Set Breakpoint',
+				},
+				{ '<F7>', dapui.toggle, desc = 'Debug: See last session result.' },
+				unpack(keys),
+			}
+		end,
+		config = function()
+			local dap = require 'dap'
+			local dapui = require 'dapui'
+			dap.adapters.gdb = {
+				type = "executable",
+				command = "gdb",
+				args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
+			}
+
+			dap.adapters.coreclr = {
+				type = 'executable',
+				command = 'netcoredbg',
+				args = { '--interpreter=vscode' }
+			}
+
+			dap.configurations.cs = {
+				{
+					type = "coreclr",
+					name = "launch - netcoredbg",
+					request = "launch",
+					program = function()
+						return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/src/Web/bin/Debug/', 'file')
+					end,
+				},
+			}
+
+			local dap = require('dap')
+			dap.adapters.firefox = {
+				type = 'executable',
+				command = 'node',
+				args = { os.getenv('HOME') .. '/dev/vscode-firefox-debug/dist/adapter.bundle.js' },
+			}
+
+			dap.configurations.typescript = {
+				{
+					name = 'Attach Firefox',
+					type = 'firefox',
+					request = 'attach',
+					reAttach = true,
+					host = '127.0.0.1',
+					url = 'http://localhost:4200',
+					webRoot = '${workspaceFolder}',
+				}
+			}
+
+			dapui.setup {
+			}
+
+			-- Change breakpoint icons
+			vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
+			vim.api.nvim_set_hl(0, 'DapStop', { fg = '#ffcc00' })
+			local breakpoint_icons = {
+				Breakpoint = '',
+				BreakpointCondition = '',
+				BreakpointRejected = '',
+				LogPoint = '',
+				Stopped = ''
+			}
+			for type, icon in pairs(breakpoint_icons) do
+				local tp = 'Dap' .. type
+				local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
+				vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
+			end
+
+			dap.listeners.after.event_initialized['dapui_config'] = dapui.open
+			dap.listeners.before.event_terminated['dapui_config'] = dapui.close
+			dap.listeners.before.event_exited['dapui_config'] = dapui.close
+		end,
 	},
 })
