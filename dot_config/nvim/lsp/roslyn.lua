@@ -71,7 +71,8 @@ return {
 	offset_encoding = "utf-8",
 	cmd = {
 		"dotnet",
-		"/home/sim/tools/Microsoft.CodeAnalysis.LanguageServer.linux-x64.5.0.0-1.25358.30/content/LanguageServer/linux-x64/Microsoft.CodeAnalysis.LanguageServer.dll",
+		vim.fn.expand(
+			"$HOME/tools/roslyn_lsp/content/LanguageServer/linux-x64/Microsoft.CodeAnalysis.LanguageServer.dll"),
 		"--logLevel=Information",
 		"--extensionLogDirectory=" .. vim.fs.dirname(vim.lsp.get_log_path()),
 		"--stdio",

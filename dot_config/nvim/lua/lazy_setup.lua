@@ -25,24 +25,6 @@ require("lazy").setup({
 		end
 	},
 	{
-		"dmtrKovalenko/fff.nvim",
-		build = "cargo build --release",
-		-- or if you are using nixos
-		-- build = "nix run .#release",
-		opts = {
-			-- pass here all the options
-		},
-		keys = {
-			{
-				"ff",            -- try it if you didn't it is a banger keybinding for a picker
-				function()
-					require("fff").find_files() -- or find_in_git_root() if you only want git files
-				end,
-				desc = "Open file picker",
-			},
-		},
-	},
-	{
 		"ibhagwan/fzf-lua",
 		-- optional for icon support
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -51,6 +33,10 @@ require("lazy").setup({
 				fd_opts = [[--color=never --hidden --type f --type l --exclude .git --exclude .jj ]],
 			}
 		},
+
+		config = function()
+			require("fzf-lua").register_ui_select()
+		end
 	},
 	{ -- Autoformat
 		"stevearc/conform.nvim",
